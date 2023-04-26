@@ -17,7 +17,7 @@ function Main() {
 	}, [])
 
 	return (
-		<div className={styles['container']}>{startMessage}</div>
+		<div className={styles['container']}>{startMessage} 12</div>
 	);
 }
 
