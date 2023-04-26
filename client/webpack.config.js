@@ -7,7 +7,7 @@ const PROD = require('minimist')(process.argv).env === 'prod';
 module.exports = {
 	entry: './src/index.js',
 	output: {
-		path: path.resolve(__dirname, '../server/static'),
+		path: path.resolve(__dirname, '../docs'),
 		filename: 'bundle.[chunkhash].js',
 		publicPath: '/',
 	},
