@@ -1,0 +1,18 @@
+{
+	"name": "cast-test",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"install": "cd server && npm i && cd ../client && npm i",
+		"start:server": "npm start --prefix server",
+		"start:client": "npm start --prefix client",
+		"start:client:prod": "npm run build:prod --prefix client"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"engines": {
+		"node": "16.0.0"
+	}
+}
