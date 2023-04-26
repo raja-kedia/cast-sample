@@ -7,7 +7,7 @@ function Main() {
 	const [startMessage, setStartMessage] = useState('');
 
 	const fetchInitialResponse = async () => {
-		const response = await fetch('/api/getdata');
+		const response = await fetch('/cast-sample/api/getdata');
 		const responsejson = await response.json();
 		setStartMessage(responsejson['start-message']);
 	}
