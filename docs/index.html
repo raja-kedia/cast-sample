@@ -1,20 +1,26 @@
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Document</title>
-	<style>
-		* {
-			margin: 0;
-			padding: 0;
-			font-family: Helvetica neue, sans-serif;
-		}
-	</style>
-<link href="/cast-sample/main.7f4c4bacffc5b4dff115.css" rel="stylesheet"></head>
-<body>
-	<div id="app"></div>
-<script type="text/javascript" src="/cast-sample/bundle.7f4c4bacffc5b4dff115.js"></script></body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica neue, sans-serif;
+      }
+    </style>
+    <script src="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+  <link href="/main.7f4c4bacffc5b4dff115.css" rel="stylesheet"></head>
+  <body>
+	Video Start
+    <div id="app"></div>
+    <cast-media-player></cast-media-player>
+    <script>
+      cast.framework.CastReceiverContext.getInstance().start();
+    </script>
+  <script type="text/javascript" src="/bundle.7f4c4bacffc5b4dff115.js"></script></body>
 </html>
 
 <!-- /cast-sample -->
