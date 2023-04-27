@@ -12,13 +12,17 @@
       }
     </style>
     <script src="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+    <script src="https://www.gstatic.com/cast/sdk/libs/devtools/debug_layer/caf_receiver_logger.js"></script>
   </head>
   <body>
-	Video Start
-    <div id="app"></div>
+    Video Start
+    <div
+      id="app"
+      style="z-index: 1000; position: absolute; left: 0; top: 0; width: 100%"
+    ></div>
     <cast-media-player></cast-media-player>
     <script>
-      cast.framework.CastReceiverContext.getInstance().start();
+      
     </script>
   </body>
 </html>

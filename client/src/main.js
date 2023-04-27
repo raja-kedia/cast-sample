@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useCastReceiver } from './components/receiver';
+// import { useCastReceiver } from './components/receiver';
 
 import styles from './main.scss';
 
@@ -18,7 +19,7 @@ function Main() {
 		fetchInitialResponse()
 	}, [])
 
-	console("videoSource: ", videoSource)
+	console.log("videoSource: ", videoSource)
 
 	return (
 		<div className={styles['container']}>{startMessage} 12</div>

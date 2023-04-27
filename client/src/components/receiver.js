@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { sendLogs } from "../utils/sendlogs";
 
 const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
@@ -10,9 +10,9 @@ class CastReceiver {
     this.framework = null;
     this.init = this.init.bind(this);
     this.enableDebug = this.enableDebug.bind(this);
-    this.setCallBackLoadRequest = this.init.setCallBackLoadRequest(this);
-    this.enableDebug();
+    this.setCallBackLoadRequest = this.setCallBackLoadRequest.bind(this);
     this.init();
+    this.enableDebug();
   }
 
   enableDebug() {
@@ -52,7 +52,7 @@ class CastReceiver {
     this.framework = cast.framework;
     if (this.framework) {
       this.context = cast.framework.CastReceiverContext.getInstance();
-      this.playerManager = context.getPlayerManager();
+      this.playerManager = this.context.getPlayerManager();
 
       this.playerManager.setMessageInterceptor(
         cast.framework.messages.MessageType.LOAD,
@@ -64,6 +64,7 @@ class CastReceiver {
           );
         }
       );
+      this.context.start();
     }
   }
 
