@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useCastReceiver } from './components/receiver';
 
 import styles from './main.scss';
 
 function Main() {
 
 	const [startMessage, setStartMessage] = useState('');
+	const videoSource = useCastReceiver()
 
 	const fetchInitialResponse = async () => {
 		const response = await fetch('/cast-sample/api/getdata');
@@ -15,6 +17,8 @@ function Main() {
 	useEffect(() => {
 		fetchInitialResponse()
 	}, [])
+
+	console("videoSource: ", videoSource)
 
 	return (
 		<div className={styles['container']}>{startMessage} 12</div>
