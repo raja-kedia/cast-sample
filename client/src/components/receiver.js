@@ -3,7 +3,6 @@ import { LIBS } from "../utils/constants";
 import { loadScript } from "../utils/loadscript";
 import { sendLogs } from "../utils/sendlogs";
 
-const castDebugLogger = {} // cast.debug.CastDebugLogger.getInstance();
 const LOG_RECEIVER_TAG = "Receiver";
 
 class CastReceiver {
@@ -11,53 +10,62 @@ class CastReceiver {
     this.context = null;
     this.framework = null;
     this.init = this.init.bind(this);
-    // this.enableDebug = this.enableDebug.bind(this);
+    this.enableDebug = this.enableDebug.bind(this);
     // this.setCallBackLoadRequest = this.setCallBackLoadRequest.bind(this);
     this.loadScript();
     // this.enableDebug();
   }
 
   loadScript() {
-    loadScript(LIBS.cast, this.init, () => {});
+    loadScript(
+      LIBS.cast,
+      () => {
+        loadScript(LIBS.debug, this.init, () => {});
+      },
+      () => {}
+    );
   }
 
   enableDebug() {
     this.context.addEventListener(cast.framework.system.EventType.READY, () => {
-      if (!castDebugLogger.debugOverlayElement_) {
+      if (!this.castDebugLogger.debugOverlayElement_) {
         /**
          *  Enable debug logger and show a 'DEBUG MODE' tag at
          *  top left corner.
          */
-        castDebugLogger.setEnabled(true);
+        this.castDebugLogger.setEnabled(true);
 
         /**
          * Show debug overlay.
          */
-        castDebugLogger.showDebugLogs(true);
+        this.castDebugLogger.showDebugLogs(true);
       }
     });
-    castDebugLogger.loggerLevelByEvents = {
+    this.castDebugLogger.loggerLevelByEvents = {
       "cast.framework.events.category.CORE": cast.framework.LoggerLevel.INFO,
       "cast.framework.events.EventType.MEDIA_STATUS":
         cast.framework.LoggerLevel.DEBUG,
     };
 
-    if (!castDebugLogger.loggerLevelByTags) {
-      castDebugLogger.loggerLevelByTags = {};
+    if (!this.castDebugLogger.loggerLevelByTags) {
+      this.castDebugLogger.loggerLevelByTags = {};
     }
 
     /*
      * Set verbosity level for custom tag.
      * Enables log messages for error, warn, info and debug.
      */
-    castDebugLogger.loggerLevelByTags[LOG_RECEIVER_TAG] =
+    this.castDebugLogger.loggerLevelByTags[LOG_RECEIVER_TAG] =
       cast.framework.LoggerLevel.DEBUG;
   }
 
   init() {
     sendLogs("init: ");
-    console.log("Init: ", cast)
+    console.log("init: ", this, cast);
+    
     this.framework = cast.framework;
+    this.castDebugLogger = cast.debug.CastDebugLogger.getInstance();
+    console.log("Init: ", cast, this.castDebugLogger);
     if (this.framework) {
       this.context = cast.framework.CastReceiverContext.getInstance();
       this.playerManager = this.context.getPlayerManager();
@@ -66,7 +74,7 @@ class CastReceiver {
       //   cast.framework.messages.MessageType.LOAD,
       //   (loadRequestData) => {
       //     sendLogs("loadRequestData: " + JSON.stringify(loadRequestData));
-      //     castDebugLogger.debug(
+      //     this.castDebugLogger.debug(
       //       LOG_RECEIVER_TAG,
       //       `loadRequestData: ${JSON.stringify(loadRequestData)}`
       //     );
@@ -74,6 +82,7 @@ class CastReceiver {
       // );
       this.context.start();
     }
+    this.enableDebug();
   }
 
   setCallBackLoadRequest(callBack) {
