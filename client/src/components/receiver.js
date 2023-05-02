@@ -116,7 +116,7 @@ class CastReceiver {
             //   );
             // }
             // logValue("D: ", data.playerState);
-            logValue("PLAYING: " + JSON.stringify(info));
+            logValue("PLAYING: ");
             break;
         }
         return data;
@@ -126,7 +126,7 @@ class CastReceiver {
     this.playerManager.setMessageInterceptor(
       this.framework.messages.MessageType.PAUSE,
       (data) => {
-        logValue("controlInterpret: PAUSE: " + JSON.stringify(data));
+        logValue("controlInterpret: PAUSE: ");
         // logValue("controlInterpret: PAUSE: " + JSON.stringify(data));
         // sendLogs("PAUSE: " + JSON.stringify(data));
         // if (data.requestId && this.videoJsRef) this.videoJsRef.togglePlay(true);
@@ -136,7 +136,7 @@ class CastReceiver {
     this.playerManager.setMessageInterceptor(
       this.framework.messages.MessageType.PLAY,
       (data) => {
-        logValue("controlInterpret: PLAY: " + JSON.stringify(data));
+        logValue("controlInterpret: PLAY: ");
         // sendLogs("PLAY: " + JSON.stringify(data));
         // if (data.requestId && this.videoJsRef)
         //   this.videoJsRef.togglePlay(false);
