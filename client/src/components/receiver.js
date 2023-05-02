@@ -15,10 +15,8 @@ class CastReceiver {
     this.loadInterpret = this.loadInterpret.bind(this);
     this.controlInterpret = this.controlInterpret.bind(this);
     this.setCallBackLoadRequest = this.setCallBackLoadRequest.bind(this);
-    this.setMediaStatus = this.setMediaStatus.bind(this);
     this.loadScript();
     logValue("constructor: ");
-    // this.enableDebug();
   }
 
   loadScript() {
@@ -76,30 +74,19 @@ class CastReceiver {
       // this.controlInterpret();
       this.context.start();
     }
-    // this.enableDebug();
   }
 
   setCallBackLoadRequest(callBack) {
     this.callBackLoadRequest = callBack;
-  }
-  setMediaStatus(callBack) {
-    this.mediaStatusCallback = callBack;
   }
 
   loadInterpret() {
     this.playerManager.setMessageInterceptor(
       this.framework.messages.MessageType.LOAD,
       (loadRequestData) => {
-        // sendLogs("loadRequestData: " + JSON.stringify(loadRequestData));
-        // this.castDebugLogger.debug(
-        //   LOG_RECEIVER_TAG,
-        //   `loadRequestData: ${JSON.stringify(loadRequestData)}`
-        // );
         // logValue("loadInterpret: load: " + JSON.stringify(loadRequestData));
         if (this.callBackLoadRequest) this.callBackLoadRequest(loadRequestData);
-
-        // if (this.mediaStatusCallback)
-        //   this.mediaStatusCallback("loadInterpret: load");
+        return loadRequestData;
       }
     );
   }
@@ -116,7 +103,6 @@ class CastReceiver {
     this.playerManager.setMessageInterceptor(
       this.framework.messages.MessageType.MEDIA_STATUS,
       (data) => {
-        // if (this.mediaStatusCallback)
         logValue("controlInterpret: MEDIA_STATUS: " + data.playerState);
         // logValue("D: ", data.playerState);
         switch (data.playerState) {
@@ -140,7 +126,6 @@ class CastReceiver {
     this.playerManager.setMessageInterceptor(
       this.framework.messages.MessageType.PAUSE,
       (data) => {
-        // if (this.mediaStatusCallback)
         logValue("controlInterpret: PAUSE: " + JSON.stringify(data));
         // logValue("controlInterpret: PAUSE: " + JSON.stringify(data));
         // sendLogs("PAUSE: " + JSON.stringify(data));
@@ -151,10 +136,6 @@ class CastReceiver {
     this.playerManager.setMessageInterceptor(
       this.framework.messages.MessageType.PLAY,
       (data) => {
-        // if (this.mediaStatusCallback)
-        // this.mediaStatusCallback(
-        //   "controlInterpret: PLAY: " + JSON.stringify(data)
-        // );
         logValue("controlInterpret: PLAY: " + JSON.stringify(data));
         // sendLogs("PLAY: " + JSON.stringify(data));
         // if (data.requestId && this.videoJsRef)
@@ -169,7 +150,6 @@ const castReceiver = new CastReceiver();
 
 export const useCastReceiver = function () {
   const [videoSource, setVideoSource] = useState("");
-  // logValue("useCastReceiver: " + JSON.stringify(videoSource));
   useEffect(() => {
     logValue("castReceiver: UE");
     castReceiver.setCallBackLoadRequest((loadRequest) => {

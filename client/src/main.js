@@ -27,14 +27,6 @@ function Main() {
 
   return (
     <>
-      {/* <div className={styles["container"]}>
-        {startMessage} 12 {typeof window !== "undefined" ? adValue : 0}
-        <br />
-        <br />
-        {JSON.stringify(videoSource)} <br />
-        <br />
-        <div style={{ color: "red" }}>{mediaStatus}</div>
-      </div> */}
       <DebugWindow />
     </>
   );
