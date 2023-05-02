@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { DebugWindow, logValue } from "./components/debugger";
 import { useCastReceiver, useMediaStatus } from "./components/receiver";
 // import { useCastReceiver } from './components/receiver';
 
@@ -10,23 +11,32 @@ function Main() {
   const mediaStatus = useMediaStatus();
 
   const fetchInitialResponse = async () => {
-    const response = await fetch("/cast-sample/api/getdata");
-    const responsejson = await response.json();
-    setStartMessage(responsejson["start-message"]);
+    logValue("fetchInitialResponse: ");
+    // const response = await fetch("/cast-sample/api/getdata");
+    // const responsejson = await response.json();
+    // // logValue("fetchedInitialResponse: error");
+    // setStartMessage(responsejson["start-message"]);
   };
 
   useEffect(() => {
     fetchInitialResponse();
+
+    logValue("videoSource: " + JSON.stringify(videoSource));
+    logValue("Version: " + (typeof window !== "undefined" ? adValue : 0));
   }, []);
 
-  console.log("videoSource: ", videoSource);
-
   return (
-    <div className={styles["container"]}>
-      {startMessage} 12 {typeof window !== "undefined" ? adValue : 0}{" "}
-      {JSON.stringify(videoSource)} <br />
-      {mediaStatus}
-    </div>
+    <>
+      {/* <div className={styles["container"]}>
+        {startMessage} 12 {typeof window !== "undefined" ? adValue : 0}
+        <br />
+        <br />
+        {JSON.stringify(videoSource)} <br />
+        <br />
+        <div style={{ color: "red" }}>{mediaStatus}</div>
+      </div> */}
+      <DebugWindow />
+    </>
   );
 }
 

@@ -1,0 +1,23 @@
+
+
+.container {
+    width: 400px;
+    height: 100vh;
+    font-size: 12px;
+    background: #efefef;
+    position: absolute;
+    right: 0;
+    /* padding: 10px; */
+    overflow-y: scroll;
+    .wrapper {
+        word-wrap: break-word;
+        /* white-space: break-spaces; */
+        /* word-break: break-all; */
+        overflow: auto;
+        .log {
+            border-bottom: 1px solid #b1b1b155;
+            padding: 6px 10px;
+        }
+        
+    }
+}
