@@ -68,7 +68,7 @@ class CastReceiver {
     logValue("init: ");
 
     this.framework = cast.framework;
-    this.castDebugLogger = cast.debug.CastDebugLogger.getInstance();
+    // this.castDebugLogger = cast.debug.CastDebugLogger.getInstance();
     if (this.framework) {
       this.context = cast.framework.CastReceiverContext.getInstance();
       this.playerManager = this.context.getPlayerManager();
@@ -76,7 +76,7 @@ class CastReceiver {
       // this.controlInterpret();
       this.context.start();
     }
-    this.enableDebug();
+    // this.enableDebug();
   }
 
   setCallBackLoadRequest(callBack) {
