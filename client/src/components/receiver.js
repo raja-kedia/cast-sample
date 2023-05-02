@@ -71,7 +71,7 @@ class CastReceiver {
       this.context = cast.framework.CastReceiverContext.getInstance();
       this.playerManager = this.context.getPlayerManager();
       this.loadInterpret();
-      // this.controlInterpret();
+      this.controlInterpret();
       this.context.start();
     }
   }
@@ -183,7 +183,7 @@ export const useCastReceiver = function () {
 export const useMediaStatus = function () {
   const [mediaStatus, setMediaStatus] = useState("media");
   useEffect(() => {
-    castReceiver.setMediaStatus(setMediaStatus);
+    // castReceiver.setMediaStatus(setMediaStatus);
   }, []);
   return mediaStatus;
 };
