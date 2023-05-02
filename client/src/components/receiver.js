@@ -15,6 +15,7 @@ class CastReceiver {
     this.loadInterpret = this.loadInterpret.bind(this);
     this.controlInterpret = this.controlInterpret.bind(this);
     this.setCallBackLoadRequest = this.setCallBackLoadRequest.bind(this);
+    this.sessionStateInterpret = this.sessionStateInterpret.bind(this);
     this.loadScript();
     logValue("constructor: ");
   }
@@ -91,6 +92,35 @@ class CastReceiver {
     );
   }
 
+  sessionStateInterpret() {
+    this.playerManager.setMessageInterceptor(
+      this.framework.messages.MessageType.SESSION_STATE,
+      (sessionState) => {
+        logValue("sessionStateInterpret: SESSION_STATE: ");
+        // if (
+        //   this.callBackLoadRequest &&
+        //   sessionState.sessionState.loadRequestData
+        // )
+        //   this.callBackLoadRequest(sessionState.sessionState.loadRequestData);
+        return sessionState;
+      }
+    );
+    this.playerManager.setMessageInterceptor(
+      this.framework.messages.MessageType.RESUME_SESSION,
+      (resumeSessionRequest) => {
+        logValue("sessionStateInterpret: RESUME_SESSION: ");
+        // if (
+        //   this.callBackLoadRequest &&
+        //   resumeSessionRequest.sessionState.loadRequestData
+        // )
+        //   this.callBackLoadRequest(
+        //     resumeSessionRequest.sessionState.loadRequestData
+        //   );
+        return resumeSessionRequest;
+      }
+    );
+  }
+
   controlInterpret() {
     logValue("controlInterpret: ");
     this.playerManager.setSupportedMediaCommands(
@@ -103,7 +133,7 @@ class CastReceiver {
     this.playerManager.setMessageInterceptor(
       this.framework.messages.MessageType.MEDIA_STATUS,
       (data) => {
-        logValue("controlInterpret: MEDIA_STATUS: " + data.playerState);
+        // logValue("controlInterpret: MEDIA_STATUS: " + data.playerState);
         // logValue("D: ", data.playerState);
         switch (data.playerState) {
           case this.framework.messages.PlayerState.PLAYING:
@@ -116,7 +146,7 @@ class CastReceiver {
             //   );
             // }
             // logValue("D: ", data.playerState);
-            logValue("PLAYING: ");
+            // logValue("PLAYING: ");
             break;
         }
         return data;
