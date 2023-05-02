@@ -73,7 +73,7 @@ class CastReceiver {
       this.context = cast.framework.CastReceiverContext.getInstance();
       this.playerManager = this.context.getPlayerManager();
       this.loadInterpret();
-      this.controlInterpret();
+      // this.controlInterpret();
       this.context.start();
     }
     this.enableDebug();
@@ -95,7 +95,7 @@ class CastReceiver {
         //   LOG_RECEIVER_TAG,
         //   `loadRequestData: ${JSON.stringify(loadRequestData)}`
         // );
-        logValue("loadInterpret: load: " + JSON.stringify(loadRequestData));
+        // logValue("loadInterpret: load: " + JSON.stringify(loadRequestData));
         if (this.callBackLoadRequest) this.callBackLoadRequest(loadRequestData);
 
         // if (this.mediaStatusCallback)
@@ -173,7 +173,10 @@ export const useCastReceiver = function () {
   useEffect(() => {
     logValue("castReceiver: UE");
     castReceiver.setCallBackLoadRequest((loadRequest) => {
-      logValue("setCallBackLoadRequest: " + JSON.stringify(loadRequest));
+      logValue(
+        "setCallBackLoadRequest: " +
+          (loadRequest.media.contentUrl || loadRequest.media.contentId)
+      );
       if (loadRequest) {
         setVideoSource(loadRequest);
       }
