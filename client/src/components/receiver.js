@@ -12,7 +12,7 @@ class CastReceiver {
     this.enableDebug = this.enableDebug.bind(this);
     this.setCallBackLoadRequest = this.setCallBackLoadRequest.bind(this);
     this.init();
-    this.enableDebug();
+    // this.enableDebug();
   }
 
   enableDebug() {
@@ -49,6 +49,7 @@ class CastReceiver {
   }
 
   init() {
+    sendLogs("init: ");
     this.framework = cast.framework;
     if (this.framework) {
       this.context = cast.framework.CastReceiverContext.getInstance();
@@ -70,6 +71,54 @@ class CastReceiver {
 
   setCallBackLoadRequest(callBack) {
     this.callBackLoadRequest = callBack;
+  }
+
+  registerPlayer() {
+    this.playerManager.setSupportedMediaCommands(
+      this.framework.messages.Command.SEEK |
+        this.framework.messages.Command.PAUSE |
+        this.framework.messages.Command.STREAM_MUTE |
+        this.framework.messages.Command.STREAM_VOLUME
+    );
+
+    this.playerManager.setMessageInterceptor(
+      this.framework.messages.MessageType.MEDIA_STATUS,
+      (data) => {
+        switch (data.playerState) {
+          case this.framework.messages.PlayerState.PLAYING:
+            // const duration = this.videoJsRef?.player?.duration();
+            // const isLive = this.videoJsRef?.player?.liveTracker.isLive();
+            const info = this.playerManager?.getMediaInformation();
+            // if (duration && info && !info.duration && !isLive) {
+            //   this.playerManager?.setMediaInformation(
+            //     Object.assign(info, { duration })
+            //   );
+            // }
+            console.log("D: ", data.playerState);
+            sendLogs("PLAYING: " + JSON.stringify(info));
+            break;
+        }
+        return data;
+      }
+    );
+
+    this.playerManager.setMessageInterceptor(
+      this.framework.messages.MessageType.PAUSE,
+      (data) => {
+        sendLogs("PAUSE: " + JSON.stringify(data));
+        // if (data.requestId && this.videoJsRef) this.videoJsRef.togglePlay(true);
+        return data;
+      }
+    );
+    this.playerManager.setMessageInterceptor(
+      this.framework.messages.MessageType.PLAY,
+      (data) => {
+        sendLogs("PLAY: " + JSON.stringify(data));
+        // if (data.requestId && this.videoJsRef)
+        //   this.videoJsRef.togglePlay(false);
+        return data;
+      }
+    );
   }
 }
 
