@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { LIBS } from "../utils/constants";
+import { loadScript } from "../utils/loadscript";
 import { sendLogs } from "../utils/sendlogs";
 
-const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
+const castDebugLogger = {} // cast.debug.CastDebugLogger.getInstance();
 const LOG_RECEIVER_TAG = "Receiver";
 
 class CastReceiver {
@@ -9,10 +11,14 @@ class CastReceiver {
     this.context = null;
     this.framework = null;
     this.init = this.init.bind(this);
-    this.enableDebug = this.enableDebug.bind(this);
-    this.setCallBackLoadRequest = this.setCallBackLoadRequest.bind(this);
-    this.init();
+    // this.enableDebug = this.enableDebug.bind(this);
+    // this.setCallBackLoadRequest = this.setCallBackLoadRequest.bind(this);
+    this.loadScript();
     // this.enableDebug();
+  }
+
+  loadScript() {
+    loadScript(LIBS.cast, this.init, () => {});
   }
 
   enableDebug() {
@@ -50,21 +56,22 @@ class CastReceiver {
 
   init() {
     sendLogs("init: ");
+    console.log("Init: ", cast)
     this.framework = cast.framework;
     if (this.framework) {
       this.context = cast.framework.CastReceiverContext.getInstance();
       this.playerManager = this.context.getPlayerManager();
 
-      this.playerManager.setMessageInterceptor(
-        cast.framework.messages.MessageType.LOAD,
-        (loadRequestData) => {
-          sendLogs("loadRequestData: " + JSON.stringify(loadRequestData));
-          castDebugLogger.debug(
-            LOG_RECEIVER_TAG,
-            `loadRequestData: ${JSON.stringify(loadRequestData)}`
-          );
-        }
-      );
+      // this.playerManager.setMessageInterceptor(
+      //   cast.framework.messages.MessageType.LOAD,
+      //   (loadRequestData) => {
+      //     sendLogs("loadRequestData: " + JSON.stringify(loadRequestData));
+      //     castDebugLogger.debug(
+      //       LOG_RECEIVER_TAG,
+      //       `loadRequestData: ${JSON.stringify(loadRequestData)}`
+      //     );
+      //   }
+      // );
       this.context.start();
     }
   }
