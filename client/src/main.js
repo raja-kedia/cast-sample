@@ -27,6 +27,7 @@ function Main() {
   return (
     <>
       <DebugWindow />
+      <cast-media-player></cast-media-player>
     </>
   );
 }
