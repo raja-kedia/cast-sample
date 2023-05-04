@@ -10,6 +10,13 @@
         padding: 0;
         font-family: Helvetica neue, sans-serif;
       }
+      cast-media-player {
+        --theme-hue: 100;
+        --progress-color: rgb(0, 255, 0);
+        --splash-image: url("https://instorestatic.tcl.com/media/catalog/product/s/5/s53_front-1_4.png");
+        --splash-size: cover;
+        --logo-image: url("https://play-lh.googleusercontent.com/lp1Tdhp75MQyrHqrsyRBV74HxoL3Ko8KRAjOUI1wUHREAxuuVwKR6vnamgvMEn4C4Q")
+      }
     </style>
     <!-- <script src="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
     <script src="https://www.gstatic.com/cast/sdk/libs/devtools/debug_layer/caf_receiver_logger.js"></script> -->
@@ -37,18 +44,18 @@
 
       // //Then redefine the old console
       // window.console = console;
-      window.adValue = 34;
+      window.adValue = 35;
     </script>
-  <link href="/cast-sample/main.dbb287de8e66ce43e1df.css" rel="stylesheet"></head>
+  <link href="/cast-sample/main.1c8463b480a4678678c2.css" rel="stylesheet"></head>
   <body>
     Video Start
     <div
       id="app"
       style="z-index: 1000; position: absolute; left: 0; top: 0; width: 100%"
     ></div>
-    <!-- <cast-media-player></cast-media-player> -->
+    <cast-media-player></cast-media-player>
     <script></script>
-  <script type="text/javascript" src="/cast-sample/bundle.dbb287de8e66ce43e1df.js"></script></body>
+  <script type="text/javascript" src="/cast-sample/bundle.1c8463b480a4678678c2.js"></script></body>
 </html>
 
 <!-- /cast-sample -->

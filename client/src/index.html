@@ -10,6 +10,13 @@
         padding: 0;
         font-family: Helvetica neue, sans-serif;
       }
+      cast-media-player {
+        --theme-hue: 100;
+        --progress-color: rgb(0, 255, 0);
+        --splash-image: url("https://instorestatic.tcl.com/media/catalog/product/s/5/s53_front-1_4.png");
+        --splash-size: cover;
+        --logo-image: url("https://play-lh.googleusercontent.com/lp1Tdhp75MQyrHqrsyRBV74HxoL3Ko8KRAjOUI1wUHREAxuuVwKR6vnamgvMEn4C4Q")
+      }
     </style>
     <!-- <script src="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
     <script src="https://www.gstatic.com/cast/sdk/libs/devtools/debug_layer/caf_receiver_logger.js"></script> -->
@@ -46,7 +53,7 @@
       id="app"
       style="z-index: 1000; position: absolute; left: 0; top: 0; width: 100%"
     ></div>
-    <!-- <cast-media-player></cast-media-player> -->
+    <cast-media-player></cast-media-player>
     <script></script>
   </body>
 </html>
