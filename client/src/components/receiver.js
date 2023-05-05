@@ -1,5 +1,5 @@
 import { LIBS } from "../utils/constants";
-import { loadScript } from "../utils/loadscript";
+import { loadScript2 } from "../utils/loadscript";
 import { logValue } from "./debugger";
 
 class CastReceiver {
@@ -13,7 +13,10 @@ class CastReceiver {
   }
 
   loadScript() {
-    loadScript(LIBS.cast, this.init, () => {});
+    loadScript2({
+      url: LIBS.cast,
+      callback: this.init,
+    });
   }
 
   init() {
