@@ -8,7 +8,7 @@ class CastReceiver {
     this.init = this.init.bind(this);
     this.setCallBackLoadRequest = this.setCallBackLoadRequest.bind(this);
     this.getVideoDetails = this.getVideoDetails.bind(this);
-    // this.loadScript();
+    this.loadScript = this.loadScript.bind(this);
   }
 
   loadScript() {
@@ -17,6 +17,7 @@ class CastReceiver {
 
   init() {
     this.framework = cast.framework;
+    logValue("loaded cast: " + !!this.framework);
     if (this.framework) {
       this.context = cast.framework.CastReceiverContext.getInstance();
       this.playerManager = this.context.getPlayerManager();
