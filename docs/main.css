@@ -1,0 +1,22 @@
+.src-components-debugger__container {
+  width: 300px;
+  height: 100vh;
+  font-size: 8px;
+  background: #efefef;
+  position: absolute;
+  right: 0;
+  /* padding: 10px; */
+  overflow-y: scroll;
+}
+.src-components-debugger__container .src-components-debugger__wrapper {
+  word-wrap: break-word;
+  /* white-space: break-spaces; */
+  /* word-break: break-all; */
+  overflow: auto;
+}
+.src-components-debugger__container .src-components-debugger__wrapper .src-components-debugger__log {
+  border-bottom: 1px solid rgba(177, 177, 177, 0.3333333333);
+  padding: 2px 6px;
+}
+
+/*# sourceMappingURL=main.css.map*/
