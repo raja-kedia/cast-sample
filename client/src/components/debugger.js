@@ -22,8 +22,6 @@ class Logger {
     this.logCB = logCB;
   }
 
-  getLog() {}
-
   addLog(log, type = "log") {
     this.logCB &&
       this.logCB((p) => {
@@ -32,8 +30,12 @@ class Logger {
   }
 
   formatLog(logs) {
-    return logs.map(({log, type}, index) => {
-      return <div className={styles["log"]} key={`log_${index}`}>{log}</div>;
+    return logs.map(({ log, type }, index) => {
+      return (
+        <div className={styles["log"]} key={`log_${index}`}>
+          {log}
+        </div>
+      );
     });
   }
 
@@ -50,8 +52,10 @@ export function DebugWindow() {
   const [log] = useLog();
 
   return (
-    <div className={styles["container"]}>
-      <div className={styles["wrapper"]}>{logger.formatLog(log)}</div>
+    <div className={styles["debug"]}>
+      <div className={styles["container"]}>
+        <div className={styles["wrapper"]}>{logger.formatLog(log)}</div>
+      </div>
     </div>
   );
 }

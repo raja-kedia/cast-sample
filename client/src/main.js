@@ -7,15 +7,15 @@ import { castReceiver } from "./components/receiver";
 function Main() {
   useEffect(() => {
     logValue("Version: " + (typeof window !== "undefined" ? adValue : 0));
+  }, []);
+
+  useEffect(() => {
+    const mediaPlayer = document.createElement("cast-media-player");
+    document.body.appendChild(mediaPlayer);
     castReceiver.loadScript();
   }, []);
 
-  return (
-    <>
-      {/* <DebugWindow /> */}
-      {/* <cast-media-player></cast-media-player> */}
-    </>
-  );
+  return null;
 }
 
 export default Main;

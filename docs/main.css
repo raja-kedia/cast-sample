@@ -1,3 +1,11 @@
+.src-components-debugger__debug {
+  z-index: 1000;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
 .src-components-debugger__container {
   width: 300px;
   height: 100vh;
