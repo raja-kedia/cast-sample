@@ -12,7 +12,7 @@ function Main() {
 
   return (
     <>
-      <DebugWindow />
+      {/* <DebugWindow /> */}
       {/* <cast-media-player></cast-media-player> */}
     </>
   );
