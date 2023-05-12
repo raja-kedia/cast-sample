@@ -15,7 +15,7 @@ function Main() {
     castReceiver.loadScript();
   }, []);
 
-  return null;
+  return <DebugWindow />;
 }
 
 export default Main;
