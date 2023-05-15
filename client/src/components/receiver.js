@@ -37,7 +37,7 @@ class CastReceiver {
       this.framework.messages.MessageType.LOAD,
       (loadRequestData) => {
         logValue("Loaded Video: " + JSON.stringify(loadRequestData));
-        this.setMedia(loadRequestData?.media?.contentUrl)
+        this.setMedia(loadRequestData?.media?.contentId)
         if (this.callBackLoadRequest)
           this.callBackLoadRequest(loadRequestData?.media?.contentUrl);
         return loadRequestData;

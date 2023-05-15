@@ -23,6 +23,11 @@ function Main() {
     castReceiver.loadScript(setMedia);
   }, []);
 
+  useEffect(() => { 
+    console.log("media: ", media);
+    logValue("media: " + media);
+  }, [media]);
+
   const playerRef = React.useRef(null);
 
   const videoJsOptions = {
