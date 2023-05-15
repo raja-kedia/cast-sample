@@ -10,9 +10,11 @@ class CastReceiver {
     this.setCallBackLoadRequest = this.setCallBackLoadRequest.bind(this);
     this.getVideoDetails = this.getVideoDetails.bind(this);
     this.loadScript = this.loadScript.bind(this);
+    this.setMedia = null
   }
 
-  loadScript() {
+  loadScript(setMedia) {
+    this.setMedia = setMedia
     loadScript2({
       url: LIBS.cast,
       callback: this.init,
@@ -35,6 +37,7 @@ class CastReceiver {
       this.framework.messages.MessageType.LOAD,
       (loadRequestData) => {
         logValue("Loaded Video: " + JSON.stringify(loadRequestData));
+        this.setMedia(loadRequestData?.media?.contentUrl)
         if (this.callBackLoadRequest)
           this.callBackLoadRequest(loadRequestData?.media?.contentUrl);
         return loadRequestData;
