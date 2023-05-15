@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import videojs from "video.js";
 // import "video.js/dist/video-js.css";
 import styles from "./debugger.scss";
+import { logValue } from "./debugger";
 
 export const VideoJS = (props) => {
   const videoRef = React.useRef(null);
@@ -20,6 +21,7 @@ export const VideoJS = (props) => {
 
       const player = (playerRef.current = videojs(videoElement, options, () => {
         videojs.log("player is ready");
+        logValue("player is ready");
         onReady && onReady(player);
       }));
 
@@ -52,6 +54,7 @@ export const VideoJS = (props) => {
     if (playerRef.current) {
       setTimeout(() => {
         console.log("useEffect player2: ", player);
+        logValue("useEffect: player is play");
         player.play();
       }, 4000);
     }

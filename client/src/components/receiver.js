@@ -26,6 +26,7 @@ class CastReceiver {
     logValue("loaded cast: " + !!this.framework);
     if (this.framework) {
       this.context = cast.framework.CastReceiverContext.getInstance();
+      logValue("loaded context: " + !!this.context);
       this.playerManager = this.context.getPlayerManager();
       this.getVideoDetails();
       this.context.start();
