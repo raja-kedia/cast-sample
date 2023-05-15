@@ -42,6 +42,25 @@ class CastReceiver {
     );
   }
 
+  getControlDetails() {
+    this.playerManager.setMessageInterceptor(
+      this.framework.messages.MessageType.PAUSE,
+      (data) => {
+        // if (data.requestId && this.videoJsRef) this.videoJsRef.togglePlay(true);
+        logValue("control Video: pause");
+        return data;
+      }
+    );
+    this.playerManager.setMessageInterceptor(
+      this.framework.messages.MessageType.PLAY,
+      (data) => {
+        // if (data.requestId && this.videoJsRef) this.videoJsRef.togglePlay(true);
+        logValue("control Video: play");
+        return data;
+      }
+    );
+  }
+
   setCallBackLoadRequest(callBack) {
     this.callBackLoadRequest = callBack;
   }

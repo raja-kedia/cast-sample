@@ -15,6 +15,7 @@ export const VideoJS = (props) => {
       const videoElement = document.createElement("video-js");
 
       videoElement.classList.add("vjs-big-play-centered");
+      videoElement.classList.add("castMediaElement");
       videoRef.current.appendChild(videoElement);
 
       const player = (playerRef.current = videojs(videoElement, options, () => {
@@ -29,7 +30,7 @@ export const VideoJS = (props) => {
 
       player.autoplay(options.autoplay);
       player.src(options.sources);
-      player.muted(true)
+      player.muted(true);
     }
   }, [options, videoRef]);
 

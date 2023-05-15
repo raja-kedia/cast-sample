@@ -14,11 +14,11 @@ function Main() {
     logValue("Version: " + (typeof window !== "undefined" ? adValue : 0));
   }, []);
 
-  useEffect(() => {
-    const mediaPlayer = document.createElement("cast-media-player");
-    document.body.appendChild(mediaPlayer);
-    castReceiver.loadScript();
-  }, []);
+  // useEffect(() => {
+  //   const mediaPlayer = document.createElement("cast-media-player");
+  //   document.body.appendChild(mediaPlayer);
+  //   castReceiver.loadScript();
+  // }, []);
 
   const playerRef = React.useRef(null);
 
