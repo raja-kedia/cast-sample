@@ -1,22 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import videojs from "video.js";
 // import "video.js/dist/video-js.css";
 import styles from "./debugger.scss";
 import { logValue } from "./debugger";
+import { createPortal } from "react-dom";
 
 export const VideoJS = (props) => {
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
-  const { options, onReady } = props;
+  const { options, onReady, src, onPLayerMounted, isPLayerCreated } = props;
 
-  React.useEffect(() => {
-    // Make sure Video.js player is only initialized once
+  const createPlayer = useCallback(() => {
     if (!playerRef.current) {
       // The Video.js player needs to be _inside_ the component el for React 18 Strict Mode.
       const videoElement = document.createElement("video-js");
 
       videoElement.classList.add("vjs-big-play-centered");
       videoElement.classList.add("castMediaElement");
+      videoElement.classList.add("videoStyle");
       videoRef.current.appendChild(videoElement);
 
       const player = (playerRef.current = videojs(videoElement, options, () => {
@@ -27,15 +28,28 @@ export const VideoJS = (props) => {
 
       // You could update an existing player in the `else` block here
       // on prop change, for example:
-    } else {
-      logValue("update url: ", options.sources);
-      const player = playerRef.current;
+    }
+  }, [playerRef.current, options]);
 
-      player.autoplay(options.autoplay);
-      player.src(options.sources);
+  React.useEffect(() => {
+    // Make sure Video.js player is only initialized once
+    logValue("is PLayer crrwted: ", isPLayerCreated);
+    if (!isPLayerCreated) {
+      logValue("create PLayer: ");
+      createPlayer();
+      onPLayerMounted(true);
+    }
+  }, [options, videoRef, isPLayerCreated]);
+
+  useEffect(() => {
+    if (src) {
+      logValue("update url: ", src);
+      const player = playerRef.current;
+      player.autoplay(true);
+      player.src(src);
       player.muted(true);
     }
-  }, [options, videoRef]);
+  }, [src]);
 
   // Dispose the Video.js player when the functional component unmounts
   React.useEffect(() => {
@@ -61,9 +75,14 @@ export const VideoJS = (props) => {
     }
   }, [playerRef]);
 
+  const VideoPLayer = createPortal(
+    <div ref={videoRef} style={{ width: "50%" }}></div>,
+    document.body
+  );
+
   return (
     <div data-vjs-player className={styles["vjs-container"]}>
-      <div ref={videoRef} />
+      {VideoPLayer}
     </div>
   );
 };

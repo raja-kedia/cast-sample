@@ -17,16 +17,39 @@ class Logger {
     this.formatLog = this.formatLog.bind(this);
     this.clearLog = this.clearLog.bind(this);
     this.log = null;
+    this.initialLogs = [];
   }
   init(logCB) {
+    console.log("init log: ", logCB);
     this.logCB = logCB;
   }
 
   addLog(log, type = "log") {
-    this.logCB &&
-      this.logCB((p) => {
-        return [...p, { log, type }];
-      });
+    if (this.logCB) {
+      if (this.initialLogs.length) {
+        this.initialLogs.push({ log, type });
+        this.logCB(() => {
+          console.log("log1: ", log);
+          return [...this.initialLogs];
+        });
+        this.initialLogs = [];
+      } else {
+        this.logCB((p) => {
+          console.log("log2: ", log);
+          return [...p, { log, type }];
+        });
+      }
+    } else {
+      console.log("log0: ", log);
+      this.initialLogs.push({ log, type });
+    }
+
+    // this.logCB
+    //   ? this.initialLogs.length ? this.logCB() : this.logCB((p) => {
+    //       console.log("log: ", log);
+    //       return [...p, { log, type }];
+    //     })
+    //   :
   }
 
   formatLog(logs) {
