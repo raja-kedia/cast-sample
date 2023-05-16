@@ -23,9 +23,10 @@ function Main() {
     // const mediaPlayer = document.createElement("cast-media-player");
     // document.body.appendChild(mediaPlayer);
     if (isPLayerCreated) {
+      logValue("loadMedia: " + isPLayerCreated);
       castReceiver.loadScript(setMedia);
     }
-  }, []);
+  }, [isPLayerCreated]);
 
   useEffect(() => {
     console.log("media: ", media);
