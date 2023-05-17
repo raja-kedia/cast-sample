@@ -50,21 +50,48 @@ class CastReceiver {
   }
 
   getControlDetails() {
+    this.playerManager.setSupportedMediaCommands(
+      this.framework.messages.Command.SEEK |
+        this.framework.messages.Command.PAUSE |
+        this.framework.messages.Command.STREAM_MUTE |
+        this.framework.messages.Command.STREAM_VOLUME
+    );
+
     this.playerManager.setMessageInterceptor(
-      this.framework.messages.MessageType.PAUSE,
+      this.framework.messages.MessageType.SEEK,
+      (seekData) => {
+        // requestId=0 means UI binding call and we can avoid it
+        controlsSubscription.emit("seek", seekData.currentTime);
+        return seekData.requestId ? seekData : { ...seekData, relativeTime: 0 };
+      }
+    );
+
+    this.playerManager.setMessageInterceptor(
+      this.this.framework.messages.MessageType.PAUSE,
       (data) => {
-        // if (data.requestId && this.videoJsRef) this.videoJsRef.togglePlay(true);
         logValue("control Video: pause");
         controlsSubscription.emit("play", false);
         return data;
       }
     );
     this.playerManager.setMessageInterceptor(
-      this.framework.messages.MessageType.PLAY,
+      this.this.framework.messages.MessageType.PLAY,
       (data) => {
         controlsSubscription.emit("play", true);
-        // if (data.requestId && this.videoJsRef) this.videoJsRef.togglePlay(true);
         logValue("control Video: play");
+        return data;
+      }
+    );
+
+    this.playerManager.setMessageInterceptor(
+      this.framework.messages.MessageType.SET_VOLUME,
+      (data) => {
+        logValue(
+          "control Video: volume: ",
+          data.volume.muted,
+          data.volume.level
+        );
+        controlsSubscription.emit("mute", data.volume.muted);
         return data;
       }
     );

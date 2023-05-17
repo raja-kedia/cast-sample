@@ -79,8 +79,7 @@ function Main() {
   );
 
   return (
-    <div style={{background: 'green'}}>
-      <div> good </div>
+    <div style={{ background: "green" }}>
       {VideoPLayer}
       <VideoControls />
       <DebugWindow />

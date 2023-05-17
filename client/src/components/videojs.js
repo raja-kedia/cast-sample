@@ -4,6 +4,7 @@ import videojs from "video.js";
 import styles from "./debugger.scss";
 import { logValue } from "./debugger";
 import { createPortal } from "react-dom";
+import { controlsSubscription } from "./controls";
 
 export const VideoJS = (props) => {
   const videoRef = React.useRef(null);
@@ -18,6 +19,10 @@ export const VideoJS = (props) => {
       videoElement.classList.add("vjs-big-play-centered");
       videoElement.classList.add("castMediaElement");
       videoElement.classList.add("videoStyle");
+      videoElement.onplay = () => {
+        logValue("onplay: ");
+        controlsSubscription.emit("play", true);
+      };
       videoRef.current.appendChild(videoElement);
 
       const player = (playerRef.current = videojs(videoElement, options, () => {
