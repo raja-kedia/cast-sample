@@ -1,5 +1,6 @@
 import { LIBS } from "../utils/constants";
 import { loadScript2 } from "../utils/loadscript";
+import { controlsSubscription } from "./controls";
 import { logValue } from "./debugger";
 
 class CastReceiver {
@@ -9,12 +10,13 @@ class CastReceiver {
     this.init = this.init.bind(this);
     this.setCallBackLoadRequest = this.setCallBackLoadRequest.bind(this);
     this.getVideoDetails = this.getVideoDetails.bind(this);
+    this.getControlDetails = this.getControlDetails.bind(this);
     this.loadScript = this.loadScript.bind(this);
-    this.setMedia = null
+    this.setMedia = null;
   }
 
   loadScript(setMedia) {
-    this.setMedia = setMedia
+    this.setMedia = setMedia;
     loadScript2({
       url: LIBS.cast,
       callback: this.init,
@@ -29,6 +31,7 @@ class CastReceiver {
       logValue("loaded context: " + !!this.context);
       this.playerManager = this.context.getPlayerManager();
       this.getVideoDetails();
+      this.getControlDetails();
       this.context.start();
     }
   }
@@ -38,7 +41,7 @@ class CastReceiver {
       this.framework.messages.MessageType.LOAD,
       (loadRequestData) => {
         logValue("Loaded Video: " + JSON.stringify(loadRequestData));
-        this.setMedia(loadRequestData?.media?.contentId)
+        this.setMedia(loadRequestData?.media?.contentId);
         if (this.callBackLoadRequest)
           this.callBackLoadRequest(loadRequestData?.media?.contentUrl);
         return loadRequestData;
@@ -52,12 +55,14 @@ class CastReceiver {
       (data) => {
         // if (data.requestId && this.videoJsRef) this.videoJsRef.togglePlay(true);
         logValue("control Video: pause");
+        controlsSubscription.emit("play", false);
         return data;
       }
     );
     this.playerManager.setMessageInterceptor(
       this.framework.messages.MessageType.PLAY,
       (data) => {
+        controlsSubscription.emit("play", true);
         // if (data.requestId && this.videoJsRef) this.videoJsRef.togglePlay(true);
         logValue("control Video: play");
         return data;

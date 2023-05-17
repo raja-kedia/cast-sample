@@ -4,6 +4,7 @@ import { castReceiver } from "./components/receiver";
 import { createPortal } from "react-dom";
 import VideoJS from "./components/videojs";
 import videojs from "video.js";
+import VideoControls from "./components/controls";
 // import "video.js/dist/video-js.css";
 require("!style-loader!css-loader!video.js/dist/video-js.css");
 
@@ -38,7 +39,7 @@ function Main() {
   const videoJsOptions = useMemo(
     () => ({
       autoplay: true,
-      controls: true,
+      // controls: true,
       responsive: true,
       mute: true,
       fluid: true,
@@ -81,6 +82,7 @@ function Main() {
     <>
       <div> good </div>
       {VideoPLayer}
+      <VideoControls />
       <DebugWindow />
     </>
   );
