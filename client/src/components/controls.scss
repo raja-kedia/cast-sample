@@ -1,5 +1,5 @@
 .container {
-    width: 50%;
+    width: 100%;
     height: 80px;
     display: flex;
     flex-direction: column;
@@ -8,11 +8,11 @@
     position: absolute;
     z-index: 10;
     background: #ff000022;
-    height: calc(100% / 1.8);
+    height: 100%;
 }
 
 .title {
-    font-size: 1.5rem;
+    font-size: 20px;
     font-weight: 600;
     color: white;
     margin-bottom: 10px;
@@ -127,4 +127,9 @@
         border-bottom-left-radius: 0;
         border-width: 8px 0px 8px 12px;
     }
+}
+
+.mute {
+    width: 100px;
+    height: 30px;
 }

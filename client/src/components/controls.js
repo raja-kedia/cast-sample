@@ -36,6 +36,7 @@ export default function VideoControls(props) {
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [startedPlaying, setStartedPlaying] = React.useState(false);
   const [visibility, setVisibility] = React.useState(false);
+  const visibilityTimeout = React.useRef(null);
   // const [currentTime, setCurrentTime] = React.useState(0);
   const [mute, setMute] = React.useState(INITIAL_MUTE_STATE);
 
@@ -49,11 +50,14 @@ export default function VideoControls(props) {
   }, []);
 
   useEffect(() => {
+    setVisibility(true);
     if (isPlaying) {
-      setVisibility(true);
-      setTimeout(() => {
+      visibilityTimeout.current = setTimeout(() => {
         setVisibility(false);
       }, 3000);
+    } else {
+      // setVisibility(false);
+      clearTimeout(visibilityTimeout.current);
     }
   }, [isPlaying, startedPlaying, mute]);
 
@@ -78,6 +82,13 @@ export default function VideoControls(props) {
       )}
 
       {startedPlaying && visibility ? <div className={style} /> : null}
+
+      {/* <button
+        className={styles["mute"]}
+        onClick={() => setIsPlaying((p) => !p)}
+      >
+        toggle {isPlaying ? "pause" : "play"}
+      </button> */}
     </div>
   );
 }
