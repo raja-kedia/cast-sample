@@ -43,13 +43,6 @@ class Logger {
       console.log("log0: ", log);
       this.initialLogs.push({ log, type });
     }
-
-    // this.logCB
-    //   ? this.initialLogs.length ? this.logCB() : this.logCB((p) => {
-    //       console.log("log: ", log);
-    //       return [...p, { log, type }];
-    //     })
-    //   :
   }
 
   formatLog(logs) {

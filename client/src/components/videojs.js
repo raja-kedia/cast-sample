@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from "react";
 import videojs from "video.js";
-// import "video.js/dist/video-js.css";
 import styles from "./debugger.scss";
 import { logValue } from "./debugger";
 import { createPortal } from "react-dom";

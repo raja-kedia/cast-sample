@@ -13,11 +13,9 @@ class CastReceiver {
     this.getVideoDetails = this.getVideoDetails.bind(this);
     this.getControlDetails = this.getControlDetails.bind(this);
     this.loadScript = this.loadScript.bind(this);
-    // this.setMedia = null;
   }
 
   loadScript() {
-    // this.setMedia = setMedia;
     loadScript2({
       url: LIBS.cast,
       callback: this.init,
@@ -29,7 +27,6 @@ class CastReceiver {
     logValue("loaded cast: " + !!this.framework);
     if (this.framework) {
       this.context = cast.framework.CastReceiverContext.getInstance();
-      // logValue("loaded context: " + !!this.context);
       this.playerManager = this.context.getPlayerManager();
       this.getVideoDetails();
       this.getControlDetails();
@@ -41,8 +38,6 @@ class CastReceiver {
     this.playerManager.setMessageInterceptor(
       this.framework.messages.MessageType.LOAD,
       (loadRequestData) => {
-        // logValue("Loaded Video: " + JSON.stringify(loadRequestData));
-        // this.setMedia(loadRequestData?.media?.contentId);
         if (this.callBackLoadRequest) this.callBackLoadRequest(loadRequestData);
         return loadRequestData;
       }

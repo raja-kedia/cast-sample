@@ -37,16 +37,13 @@ export default function VideoControls(props) {
   const [startedPlaying, setStartedPlaying] = React.useState(false);
   const [visibility, setVisibility] = React.useState(false);
   const visibilityTimeout = React.useRef(null);
-  // const [currentTime, setCurrentTime] = React.useState(0);
-  const [mute, setMute] = React.useState(INITIAL_MUTE_STATE);
 
-  // const [isPaused, setIsPaused] = React.useState(false);
+  const [mute, setMute] = React.useState(INITIAL_MUTE_STATE);
   useEffect(() => {
     controlsSubscription.subscribe("play", setIsPlaying);
     controlsSubscription.subscribe("startplay", setStartedPlaying);
-    // controlsSubscription.subscribe("timeupdate", setCurrentTime);
+
     controlsSubscription.subscribe("mute", setMute);
-    // controlsSubscription.subscribe("pause", setIsPaused);
   }, []);
 
   useEffect(() => {
@@ -56,12 +53,11 @@ export default function VideoControls(props) {
         setVisibility(false);
       }, 3000);
     } else {
-      // setVisibility(false);
       clearTimeout(visibilityTimeout.current);
     }
   }, [isPlaying, startedPlaying, mute]);
 
-  const style = isPlaying ? styles["play"] : styles["pause"];
+  const style = isPlaying ? styles["pause"] : styles["play"];
   const backStyles = startedPlaying ? styles["back-play"] : styles["back-not"];
   return (
     <div className={styles["container"] + " " + backStyles}>
@@ -70,10 +66,6 @@ export default function VideoControls(props) {
           {props.videoSource.title || "Eng vs south africa"}
         </div>
       ) : null}
-      <span>
-        {/* VideoControls PLaying: {`${isPlaying} ${startedPlaying} ${mute}`} */}
-      </span>
-      {/* <br /> */}
 
       {startedPlaying ? null : (
         <div className={styles["loading-container"]}>
@@ -82,13 +74,6 @@ export default function VideoControls(props) {
       )}
 
       {startedPlaying && visibility ? <div className={style} /> : null}
-
-      {/* <button
-        className={styles["mute"]}
-        onClick={() => setIsPlaying((p) => !p)}
-      >
-        toggle {isPlaying ? "pause" : "play"}
-      </button> */}
     </div>
   );
 }

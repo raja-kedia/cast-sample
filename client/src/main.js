@@ -1,19 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { DebugWindow, logValue } from "./components/debugger";
 import { castReceiver, useCastReceiver } from "./components/receiver";
-import { createPortal } from "react-dom";
 import VideoJS from "./components/videojs";
 import videojs from "video.js";
 import VideoControls from "./components/controls";
-// import "video.js/dist/video-js.css";
 require("!style-loader!css-loader!video.js/dist/video-js.css");
 
-// import styles from "./main.scss";
-
 function Main() {
-  // const [media, setMedia] = useState(
-  //   "" //"https://dai.google.com/linear/hls/event/kX6OHnNXRCCHWAlPXcNMaQ/master.m3u8?hdnea=exp=1684151062~acl=*~id=MacIntel_1cba8fcb-5809-46~data=MacIntel~hmac=6b5c48e8dbba5d559d24e99b71d3f00a98c7851f4c5ce21deaf97befdf654552&deviceId=MacIntel&advertiserId=undefined&cust_params=app_version%3D%26app_platform%3Dfc-web%26state%3DMaharashtra%26city%3DMumbai%26match_id%3D59460%26match_format%3DT10%26tour_id%3D2826%26tour_name%3DDream11_Trinidad_T10_Blast%26sport%3Dcricket%26authorizationType%3DNONE&state=Maharashtra&city=Mumbai"
-  // );
   const videoSource = useCastReceiver();
 
   const [isPLayerCreated, setIsPLayerCreated] = useState(false);
@@ -23,11 +16,8 @@ function Main() {
   }, []);
 
   useEffect(() => {
-    // const mediaPlayer = document.createElement("cast-media-player");
-    // document.body.appendChild(mediaPlayer);
     if (isPLayerCreated) {
       logValue("loadMedia: " + isPLayerCreated);
-      // castReceiver.setCallBackLoadRequest()
       castReceiver.loadScript();
     }
   }, [isPLayerCreated]);
