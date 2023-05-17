@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { LIBS } from "../utils/constants";
 import { loadScript2 } from "../utils/loadscript";
 import { controlsSubscription } from "./controls";
@@ -12,11 +13,11 @@ class CastReceiver {
     this.getVideoDetails = this.getVideoDetails.bind(this);
     this.getControlDetails = this.getControlDetails.bind(this);
     this.loadScript = this.loadScript.bind(this);
-    this.setMedia = null;
+    // this.setMedia = null;
   }
 
-  loadScript(setMedia) {
-    this.setMedia = setMedia;
+  loadScript() {
+    // this.setMedia = setMedia;
     loadScript2({
       url: LIBS.cast,
       callback: this.init,
@@ -25,7 +26,7 @@ class CastReceiver {
 
   init() {
     this.framework = cast.framework;
-    // logValue("loaded cast: " + !!this.framework);
+    logValue("loaded cast: " + !!this.framework);
     if (this.framework) {
       this.context = cast.framework.CastReceiverContext.getInstance();
       // logValue("loaded context: " + !!this.context);
@@ -41,9 +42,8 @@ class CastReceiver {
       this.framework.messages.MessageType.LOAD,
       (loadRequestData) => {
         // logValue("Loaded Video: " + JSON.stringify(loadRequestData));
-        this.setMedia(loadRequestData?.media?.contentId);
-        if (this.callBackLoadRequest)
-          this.callBackLoadRequest(loadRequestData?.media?.contentUrl);
+        // this.setMedia(loadRequestData?.media?.contentId);
+        if (this.callBackLoadRequest) this.callBackLoadRequest(loadRequestData);
         return loadRequestData;
       }
     );
@@ -61,6 +61,7 @@ class CastReceiver {
       this.framework.events.EventType.PLAYING,
       (data) => {
         logValue("control Video: playing");
+        controlsSubscription.emit("startplay", true);
         controlsSubscription.emit("play", true);
       }
     );
@@ -110,5 +111,30 @@ class CastReceiver {
     this.callBackLoadRequest = callBack;
   }
 }
+
+export const useCastReceiver = function () {
+  const [videoSource, setVideoSource] = useState({});
+  useEffect(() => {
+    castReceiver.setCallBackLoadRequest((loadRequest) => {
+      logValue("Loaded Video: " + JSON.stringify(loadRequest));
+      if (loadRequest.media.contentType) {
+        setVideoSource({
+          title:
+            loadRequest.media.customData?.contentName ||
+            loadRequest.media.customData?.title,
+          description: loadRequest.media.customData?.contentName,
+          posterUrl: loadRequest.media.customData?.posterUrl,
+          url: loadRequest.media.contentUrl || loadRequest.media.contentId,
+          playerType: "FANCODE",
+          deliveryType: loadRequest.media.contentType,
+          contextParams: loadRequest.media.customData,
+          certificateUri: loadRequest.media.customData?.certificateUri,
+          licenseUri: loadRequest.media.customData?.licenseUri,
+        });
+      }
+    });
+  }, []);
+  return videoSource;
+};
 
 export const castReceiver = new CastReceiver();

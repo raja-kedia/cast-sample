@@ -11,11 +11,11 @@ export const VideoJS = (props) => {
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
   const [mute, setMute] = React.useState(INITIAL_MUTE_STATE);
-  const { options, onReady, src, onPLayerMounted, isPLayerCreated } = props;
+  const { options, onReady, videoSource, onPLayerMounted, isPLayerCreated } =
+    props;
 
   const createPlayer = useCallback(() => {
     if (!playerRef.current) {
-      // The Video.js player needs to be _inside_ the component el for React 18 Strict Mode.
       const videoElement = document.createElement("video-js");
 
       videoElement.classList.add("vjs-big-play-centered");
@@ -30,33 +30,31 @@ export const VideoJS = (props) => {
       const player = (playerRef.current = videojs(videoElement, options, () => {
         videojs.log("player is ready");
         logValue("player is ready");
+        player.poster(
+          "https://d37b8r5jwexjm9.cloudfront.net/wp-content/uploads/2022/06/26231835/fancodefinalbanner.jpg"
+        );
         onReady && onReady(player);
       }));
-
-      // You could update an existing player in the `else` block here
-      // on prop change, for example:
     }
   }, [playerRef.current, options]);
 
   React.useEffect(() => {
-    // Make sure Video.js player is only initialized once
-    logValue("is PLayer crrwted: ", isPLayerCreated);
     if (!isPLayerCreated) {
-      logValue("create PLayer: ");
       createPlayer();
       onPLayerMounted(true);
     }
   }, [options, videoRef, isPLayerCreated]);
 
   useEffect(() => {
-    if (src) {
-      logValue("update url: ", src);
+    if (videoSource.src) {
+      logValue("update url: ", videoSource.src);
       const player = playerRef.current;
       player.autoplay(true);
-      player.src(src);
+      player.src({ src: videoSource.src });
+      player.poster(videoSource?.posterUrl);
       player.muted(mute);
     }
-  }, [src]);
+  }, [videoSource]);
 
   useEffect(() => {
     logValue("mute: ", mute);
@@ -64,7 +62,6 @@ export const VideoJS = (props) => {
     player.muted(mute);
   }, [mute]);
 
-  // Dispose the Video.js player when the functional component unmounts
   React.useEffect(() => {
     const player = playerRef.current;
     return () => {
@@ -78,18 +75,6 @@ export const VideoJS = (props) => {
   React.useEffect(() => {
     controlsSubscription.emit("mute", setMute);
   }, []);
-
-  // useEffect(() => {
-  //   const player = playerRef.current;
-  //   console.log("useEffect player", player);
-  //   if (playerRef.current) {
-  //     setTimeout(() => {
-  //       console.log("useEffect player2: ", player);
-  //       logValue("useEffect: player is play");
-  //       player.play();
-  //     }, 4000);
-  //   }
-  // }, [playerRef]);
 
   const VideoPLayer = createPortal(
     <div ref={videoRef} style={{ width: "50%" }}></div>,
