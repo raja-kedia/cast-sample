@@ -13,13 +13,10 @@
   background: #efefef;
   position: absolute;
   right: 0;
-  /* padding: 10px; */
   overflow-y: scroll;
 }
 .src-components-debugger__container .src-components-debugger__wrapper {
   word-wrap: break-word;
-  /* white-space: break-spaces; */
-  /* word-break: break-all; */
   overflow: auto;
 }
 .src-components-debugger__container .src-components-debugger__wrapper .src-components-debugger__log {
@@ -33,7 +30,6 @@
   top: 0;
   left: 0;
   width: 50%;
-  border: 3px solid white;
 }
 .src-components-controls__container {
   width: 50%;
@@ -46,6 +42,16 @@
   z-index: 10;
   background: rgba(255, 0, 0, 0.1333333333);
   height: 55.5555555556%;
+}
+
+.src-components-controls__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 10px;
+  position: absolute;
+  top: 10%;
+  left: 10%;
 }
 
 .src-components-controls__loading-container {

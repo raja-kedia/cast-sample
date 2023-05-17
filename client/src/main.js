@@ -80,7 +80,7 @@ function Main() {
   return (
     <div style={{ background: "green" }}>
       {VideoPLayer}
-      <VideoControls />
+      <VideoControls videoSource={videoSource} />
       <DebugWindow />
     </div>
   );

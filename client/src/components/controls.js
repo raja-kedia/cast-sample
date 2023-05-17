@@ -49,18 +49,23 @@ export default function VideoControls(props) {
   }, []);
 
   useEffect(() => {
-    // if (isPlaying) {
-    setVisibility(true);
-    setTimeout(() => {
-      setVisibility(false);
-    }, 3000);
-    // }
+    if (isPlaying) {
+      setVisibility(true);
+      setTimeout(() => {
+        setVisibility(false);
+      }, 3000);
+    }
   }, [isPlaying, startedPlaying, mute]);
 
   const style = isPlaying ? styles["play"] : styles["pause"];
   const backStyles = startedPlaying ? styles["back-play"] : styles["back-not"];
   return (
     <div className={styles["container"] + " " + backStyles}>
+      {visibility ? (
+        <div className={styles["title"]}>
+          {props.videoSource.title || "Eng vs south africa"}
+        </div>
+      ) : null}
       <span>
         {/* VideoControls PLaying: {`${isPlaying} ${startedPlaying} ${mute}`} */}
       </span>

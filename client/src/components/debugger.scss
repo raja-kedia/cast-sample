@@ -13,13 +13,10 @@
     background: #efefef;
     position: absolute;
     right: 0;
-    /* padding: 10px; */
     overflow-y: scroll;
 
     .wrapper {
         word-wrap: break-word;
-        /* white-space: break-spaces; */
-        /* word-break: break-all; */
         overflow: auto;
 
         .log {
@@ -36,5 +33,4 @@
     top: 0;
     left: 0;
     width: 50%;
-    border: 3px solid white;
 }

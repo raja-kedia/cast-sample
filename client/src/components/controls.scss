@@ -11,6 +11,16 @@
     height: calc(100% / 1.8);
 }
 
+.title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 10px;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+}
+
 .loading-container {
     margin-top: 50%;
 }

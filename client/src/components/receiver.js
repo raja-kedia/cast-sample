@@ -61,7 +61,6 @@ class CastReceiver {
       this.framework.events.EventType.PLAYING,
       (data) => {
         logValue("control Video: playing");
-        controlsSubscription.emit("startplay", true);
         controlsSubscription.emit("play", true);
       }
     );

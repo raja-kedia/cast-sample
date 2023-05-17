@@ -53,6 +53,7 @@ export const VideoJS = (props) => {
       player.src({ src: videoSource.url });
       player.poster(videoSource?.posterUrl);
       player.muted(mute);
+      controlsSubscription.emit("startplay", true);
     }
   }, [videoSource]);
 
