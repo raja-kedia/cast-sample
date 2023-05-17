@@ -35,6 +35,7 @@ export const controlsSubscription = new ControlsSubscription();
 export default function VideoControls(props) {
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [startedPlaying, setStartedPlaying] = React.useState(false);
+  const [visibility, setVisibility] = React.useState(false);
   // const [currentTime, setCurrentTime] = React.useState(0);
   const [mute, setMute] = React.useState(INITIAL_MUTE_STATE);
 
@@ -47,15 +48,31 @@ export default function VideoControls(props) {
     // controlsSubscription.subscribe("pause", setIsPaused);
   }, []);
 
+  useEffect(() => {
+    // if (isPlaying) {
+    setVisibility(true);
+    setTimeout(() => {
+      setVisibility(false);
+    }, 3000);
+    // }
+  }, [isPlaying, startedPlaying, mute]);
+
   const style = isPlaying ? styles["play"] : styles["pause"];
   const backStyles = startedPlaying ? styles["back-play"] : styles["back-not"];
   return (
     <div className={styles["container"] + " " + backStyles}>
       <span>
-        VideoControls PLaying: {`${isPlaying} ${startedPlaying} ${mute}`}
+        {/* VideoControls PLaying: {`${isPlaying} ${startedPlaying} ${mute}`} */}
       </span>
-      <br />
-      <div className={style} />
+      {/* <br /> */}
+
+      {startedPlaying ? null : (
+        <div className={styles["loading-container"]}>
+          <span className={styles["loading"]} />
+        </div>
+      )}
+
+      {startedPlaying && visibility ? <div className={style} /> : null}
     </div>
   );
 }

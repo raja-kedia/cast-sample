@@ -1,23 +1,48 @@
 .container {
     width: 50%;
     height: 80px;
-    background: red;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: absolute;
     z-index: 10;
-    background: #ff000055;
+    background: #ff000022;
     height: calc(100% / 1.8);
 }
 
+.loading-container {
+    margin-top: 50%;
+}
+
+.loading {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 4px solid #ff5000;
+    border-left: 4px solid #ffffff00;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .back-play {
-    background: #ff000055;
+    background: #ff000022;
 }
 
 .back-not {
-    background: rgba(0, 255, 0, 0.9);
+    background: rgba(0, 0, 0, 1);
     background-image: url('https://fancode.com/skillup-uploads/prod-images/2023/05/Screenshot_2023-05-12_at_1.34.29_PM-removebg-preview.png');
     background-repeat: no-repeat;
     background-size: contain;
