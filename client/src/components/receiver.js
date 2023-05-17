@@ -61,13 +61,14 @@ class CastReceiver {
       this.framework.messages.MessageType.SEEK,
       (seekData) => {
         // requestId=0 means UI binding call and we can avoid it
-        controlsSubscription.emit("seek", seekData.currentTime);
+        if (seekData.requestId === 0) return seekData;
+        controlsSubscription.emit("timeupdate", seekData.currentTime);
         return seekData.requestId ? seekData : { ...seekData, relativeTime: 0 };
       }
     );
 
     this.playerManager.setMessageInterceptor(
-      this.this.framework.messages.MessageType.PAUSE,
+      this.framework.messages.MessageType.PAUSE,
       (data) => {
         logValue("control Video: pause");
         controlsSubscription.emit("play", false);
@@ -75,7 +76,7 @@ class CastReceiver {
       }
     );
     this.playerManager.setMessageInterceptor(
-      this.this.framework.messages.MessageType.PLAY,
+      this.framework.messages.MessageType.PLAY,
       (data) => {
         controlsSubscription.emit("play", true);
         logValue("control Video: play");
