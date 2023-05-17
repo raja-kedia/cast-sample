@@ -78,10 +78,7 @@ export const VideoJS = (props) => {
     controlsSubscription.emit("mute", setMute);
   }, []);
 
-  const VideoPLayer = createPortal(
-    <div ref={videoRef} style={{ width: "50%" }}></div>,
-    document.body
-  );
+  const VideoPLayer = createPortal(<div ref={videoRef}></div>, document.body);
 
   return (
     <div data-vjs-player className={styles["vjs-container"]}>
