@@ -81,7 +81,7 @@ function Main() {
     <div style={{ background: "green" }}>
       {VideoPLayer}
       <VideoControls videoSource={videoSource} />
-      <DebugWindow />
+      {/* <DebugWindow /> */}
     </div>
   );
 }

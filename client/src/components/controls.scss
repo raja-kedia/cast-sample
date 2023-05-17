@@ -17,8 +17,11 @@
     color: white;
     margin-bottom: 10px;
     position: absolute;
-    top: 10%;
-    left: 10%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(180deg, black, transparent);
+    padding: 20px 20px 40px;
+    width: 100%;
 }
 
 .loading-container {
@@ -57,6 +60,9 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+
+
+    // background: white;
 }
 
 .pause {
