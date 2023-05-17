@@ -54,7 +54,11 @@
 }
 
 .src-components-controls__back-not {
-  background: rgba(0, 255, 0, 0.3333333333);
+  background: rgba(0, 255, 0, 0.9);
+  background-image: url("https://fancode.com/skillup-uploads/prod-images/2023/05/Screenshot_2023-05-12_at_1.34.29_PM-removebg-preview.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
 .src-components-controls__pause {

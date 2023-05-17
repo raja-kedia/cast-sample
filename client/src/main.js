@@ -34,7 +34,7 @@ function Main() {
 
   useEffect(() => {
     console.log("media: ", videoSource);
-    logValue("media: " + videoSource.src);
+    logValue("media: " + videoSource.url);
   }, [videoSource]);
 
   const videoJsOptions = useMemo(

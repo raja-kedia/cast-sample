@@ -46,11 +46,11 @@ export const VideoJS = (props) => {
   }, [options, videoRef, isPLayerCreated]);
 
   useEffect(() => {
-    if (videoSource.src) {
-      logValue("update url: ", videoSource.src);
+    if (videoSource.url) {
+      logValue("update url: ", videoSource.url);
       const player = playerRef.current;
       player.autoplay(true);
-      player.src({ src: videoSource.src });
+      player.src({ src: videoSource.url });
       player.poster(videoSource?.posterUrl);
       player.muted(mute);
     }
