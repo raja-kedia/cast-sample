@@ -79,12 +79,12 @@ function Main() {
   );
 
   return (
-    <>
+    <div style={{background: 'green'}}>
       <div> good </div>
       {VideoPLayer}
       <VideoControls />
       <DebugWindow />
-    </>
+    </div>
   );
 }
 
