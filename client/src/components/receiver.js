@@ -25,10 +25,10 @@ class CastReceiver {
 
   init() {
     this.framework = cast.framework;
-    logValue("loaded cast: " + !!this.framework);
+    // logValue("loaded cast: " + !!this.framework);
     if (this.framework) {
       this.context = cast.framework.CastReceiverContext.getInstance();
-      logValue("loaded context: " + !!this.context);
+      // logValue("loaded context: " + !!this.context);
       this.playerManager = this.context.getPlayerManager();
       this.getVideoDetails();
       this.getControlDetails();
@@ -40,7 +40,7 @@ class CastReceiver {
     this.playerManager.setMessageInterceptor(
       this.framework.messages.MessageType.LOAD,
       (loadRequestData) => {
-        logValue("Loaded Video: " + JSON.stringify(loadRequestData));
+        // logValue("Loaded Video: " + JSON.stringify(loadRequestData));
         this.setMedia(loadRequestData?.media?.contentId);
         if (this.callBackLoadRequest)
           this.callBackLoadRequest(loadRequestData?.media?.contentUrl);
@@ -55,6 +55,14 @@ class CastReceiver {
         this.framework.messages.Command.PAUSE |
         this.framework.messages.Command.STREAM_MUTE |
         this.framework.messages.Command.STREAM_VOLUME
+    );
+
+    this.playerManager.addEventListener(
+      this.framework.events.EventType.PLAYING,
+      (data) => {
+        logValue("control Video: playing");
+        controlsSubscription.emit("play", true);
+      }
     );
 
     this.playerManager.setMessageInterceptor(

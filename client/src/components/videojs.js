@@ -5,10 +5,12 @@ import styles from "./debugger.scss";
 import { logValue } from "./debugger";
 import { createPortal } from "react-dom";
 import { controlsSubscription } from "./controls";
+import { INITIAL_MUTE_STATE } from "./constants";
 
 export const VideoJS = (props) => {
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
+  const [mute, setMute] = React.useState(INITIAL_MUTE_STATE);
   const { options, onReady, src, onPLayerMounted, isPLayerCreated } = props;
 
   const createPlayer = useCallback(() => {
@@ -52,14 +54,19 @@ export const VideoJS = (props) => {
       const player = playerRef.current;
       player.autoplay(true);
       player.src(src);
-      player.muted(true);
+      player.muted(mute);
     }
   }, [src]);
+
+  useEffect(() => {
+    logValue("mute: ", mute);
+    const player = playerRef.current;
+    player.muted(mute);
+  }, [mute]);
 
   // Dispose the Video.js player when the functional component unmounts
   React.useEffect(() => {
     const player = playerRef.current;
-
     return () => {
       if (player && !player.isDisposed()) {
         player.dispose();
@@ -68,17 +75,21 @@ export const VideoJS = (props) => {
     };
   }, [playerRef]);
 
-  useEffect(() => {
-    const player = playerRef.current;
-    console.log("useEffect player", player);
-    if (playerRef.current) {
-      setTimeout(() => {
-        console.log("useEffect player2: ", player);
-        logValue("useEffect: player is play");
-        player.play();
-      }, 4000);
-    }
-  }, [playerRef]);
+  React.useEffect(() => {
+    controlsSubscription.emit("mute", setMute);
+  }, []);
+
+  // useEffect(() => {
+  //   const player = playerRef.current;
+  //   console.log("useEffect player", player);
+  //   if (playerRef.current) {
+  //     setTimeout(() => {
+  //       console.log("useEffect player2: ", player);
+  //       logValue("useEffect: player is play");
+  //       player.play();
+  //     }, 4000);
+  //   }
+  // }, [playerRef]);
 
   const VideoPLayer = createPortal(
     <div ref={videoRef} style={{ width: "50%" }}></div>,

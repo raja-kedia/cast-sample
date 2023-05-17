@@ -1,0 +1,39 @@
+.src-components-debugger__debug {
+  z-index: 1000;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.src-components-debugger__container {
+  width: 300px;
+  height: 100vh;
+  font-size: 8px;
+  background: #efefef;
+  position: absolute;
+  right: 0;
+  /* padding: 10px; */
+  overflow-y: scroll;
+}
+.src-components-debugger__container .src-components-debugger__wrapper {
+  word-wrap: break-word;
+  /* white-space: break-spaces; */
+  /* word-break: break-all; */
+  overflow: auto;
+}
+.src-components-debugger__container .src-components-debugger__wrapper .src-components-debugger__log {
+  border-bottom: 1px solid rgba(177, 177, 177, 0.3333333333);
+  padding: 2px 6px;
+}
+
+.src-components-debugger__vjs-container {
+  z-index: 5000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  border: 3px solid white;
+}
+
+/*# sourceMappingURL=main.css.map*/

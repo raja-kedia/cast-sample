@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { INITIAL_MUTE_STATE } from "./constants";
 
 class ControlsSubscription {
   constructor() {
@@ -35,7 +36,7 @@ export default function VideoControls(props) {
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [startedPlaying, setStartedPlaying] = React.useState(false);
   const [currentTime, setCurrentTime] = React.useState(0);
-  const [mute, setMute] = React.useState(false);
+  const [mute, setMute] = React.useState(INITIAL_MUTE_STATE);
 
   // const [isPaused, setIsPaused] = React.useState(false);
   useEffect(() => {
