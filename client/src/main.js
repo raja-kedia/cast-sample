@@ -30,9 +30,9 @@ function Main() {
   const videoJsOptions = useMemo(
     () => ({
       autoplay: true,
-      // responsive: true,
+      responsive: true,
       mute: true,
-      // fluid: true,
+      fluid: true,
       // sources: [
       //   {
       //     // poster:
