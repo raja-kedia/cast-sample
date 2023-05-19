@@ -30,19 +30,19 @@ function Main() {
   const videoJsOptions = useMemo(
     () => ({
       autoplay: true,
-      responsive: true,
+      // responsive: true,
       mute: true,
-      fluid: true,
-      sources: [
-        {
-          poster:
-            "https://mir-s3-cdn-cf.behance.net/projects/404/5ec7bd164133673.Y3JvcCwxMzgwLDEwODAsMjcwLDA.png",
-          type:
-            "application/vnd.apple.mpegurl" ||
-            "application/dash+xml" ||
-            "video/mp4",
-        },
-      ],
+      // fluid: true,
+      // sources: [
+      //   {
+      //     // poster:
+      //     //   "https://mir-s3-cdn-cf.behance.net/projects/404/5ec7bd164133673.Y3JvcCwxMzgwLDEwODAsMjcwLDA.png",
+      //     type:
+      //       "application/vnd.apple.mpegurl" ||
+      //       "application/dash+xml" ||
+      //       "video/mp4",
+      //   },
+      // ],
     }),
     []
   );

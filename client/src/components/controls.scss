@@ -7,7 +7,6 @@
     justify-content: center;
     position: absolute;
     z-index: 10;
-    background: #ff000022;
     height: 100%;
 }
 
@@ -21,11 +20,11 @@
     left: 0;
     background: linear-gradient(180deg, black, transparent);
     padding: 20px 20px 40px;
-    width: 100%;
+    width: calc(100% - 40px);
 }
 
 .loading-container {
-    margin-top: 50%;
+    margin-top: 50vh;
 }
 
 .loading {
@@ -50,15 +49,13 @@
     }
 }
 
-.back-play {
-    background: #ff000022;
-}
+.back-play {}
 
 .back-not {
     background: rgba(0, 0, 0, 1);
     background-image: url('https://fancode.com/skillup-uploads/prod-images/2023/05/Screenshot_2023-05-12_at_1.34.29_PM-removebg-preview.png');
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: auto;
     background-position: center;
 }
 

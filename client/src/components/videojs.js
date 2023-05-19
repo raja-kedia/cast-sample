@@ -6,6 +6,11 @@ import { createPortal } from "react-dom";
 import { controlsSubscription } from "./controls";
 import { INITIAL_MUTE_STATE } from "./constants";
 
+export const deliveryTypeMap = (deliveryType) => {
+  if (deliveryType === "video/mpeg-dash") return "application/dash+xml";
+  return deliveryType ?? "application/dash+xml";
+};
+
 export const VideoJS = (props) => {
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
@@ -27,11 +32,11 @@ export const VideoJS = (props) => {
       videoRef.current.appendChild(videoElement);
 
       const player = (playerRef.current = videojs(videoElement, options, () => {
-        videojs.log("player is ready");
+        // videojs.log("player is ready");
         logValue("player is ready");
-        player.poster(
-          "https://d37b8r5jwexjm9.cloudfront.net/wp-content/uploads/2022/06/26231835/fancodefinalbanner.jpg"
-        );
+        // player.poster(
+        //   "https://fancode.com/skillup-uploads/prod-images/2023/05/Screenshot_2023-05-12_at_1.34.29_PM-removebg-preview.png"
+        // );
         onReady && onReady(player);
       }));
     }
@@ -49,7 +54,10 @@ export const VideoJS = (props) => {
       logValue("update url: ", videoSource.url);
       const player = playerRef.current;
       player.autoplay(true);
-      player.src({ src: videoSource.url });
+      player.src({
+        src: videoSource.url,
+        type: deliveryTypeMap(videoSource?.deliveryType),
+      });
       player.poster(videoSource?.posterUrl);
       player.muted(mute);
       player.play();
@@ -77,7 +85,10 @@ export const VideoJS = (props) => {
     controlsSubscription.emit("mute", setMute);
   }, []);
 
-  const VideoPLayer = createPortal(<div ref={videoRef}></div>, document.body);
+  const VideoPLayer = createPortal(
+    <div ref={videoRef} className={styles["vjs-wrapper"]}></div>,
+    document.body
+  );
 
   return (
     <div data-vjs-player className={styles["vjs-container"]}>
